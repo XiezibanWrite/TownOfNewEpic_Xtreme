@@ -1629,6 +1629,7 @@ Message.DirectorModeNotice: "提示：该房间启用了【导演模式】，房
 Message.PetModeNotice: "提示：该房间启用了【是否用宠物按钮代替技能按钮】，所有人在开始时将拥有宠物"
 Message.ReadySetScanner: "已成功让您拥有扫描特效！"
 Message.ReadySetScannerReturn: "您正在游戏中，无法拥有扫描特效！"
+Message.ReadyCloseScanner: "已成功让您失去扫描特效！"
 Message.NonLatestEje: "当前无驱逐"
 
 # 通知 / Notifications

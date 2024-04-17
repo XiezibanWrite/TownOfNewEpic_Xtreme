@@ -103,6 +103,7 @@ public class Main : BasePlugin
     public static List<int> clientIdList = new();
     public static List<(string, byte, string)> MessagesToSend = new();
     public static List<PlayerControl> LoversPlayers = new();
+    public static List<PlayerControl> PlayerUsingScanner = new();
     public static bool isLoversDead = true;
     public static Dictionary<byte, float> AllPlayerKillCooldown = new();
     public static Dictionary<byte, List<string>> SetRolesList = new();

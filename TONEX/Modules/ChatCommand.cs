@@ -151,12 +151,23 @@ public class ChatCommand(List<string> keywords, CommandAccess access, Func<Messa
                     string cantuse = GetString("Message.ReadySetScannerReturn");
                     return (MsgRecallMode.Block, cantuse);
                 }
-                string text = GetString("Message.ReadySetScanner");
                 var player = mc.Player;
+                if (Main.PlayerUsingScanner.Contains(player) && player != null)
+                {
+                    string closescanner = GetString("Message.ReadyCloseScanner");
+                player.RpcSetScanner(false);
+                MessageWriter writers = AmongUsClient.Instance.StartRpcImmediately(player.NetId, (byte)RpcCalls.SetScanner, SendOption.Reliable, -1);
+                writers.Write(false);
+                AmongUsClient.Instance.FinishRpcImmediately(writers);
+                Main.PlayerUsingScanner.Remove(player);
+                return (MsgRecallMode.Block, closescanner);
+                }
+                string text = GetString("Message.ReadySetScanner");
                 player.RpcSetScanner(true);
                 MessageWriter writer = AmongUsClient.Instance.StartRpcImmediately(player.NetId, (byte)RpcCalls.SetScanner, SendOption.Reliable, -1);
                 writer.Write(true);
                 AmongUsClient.Instance.FinishRpcImmediately(writer);
+                Main.PlayerUsingScanner.Add(player);
                 mc.SendToList.Add(mc.Player.PlayerId);
                 return (MsgRecallMode.Block, text);
             }),

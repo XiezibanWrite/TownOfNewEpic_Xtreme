@@ -37,7 +37,7 @@ class OnGameJoinedPatch
             Main.NewLobby = true;
             Main.DevRole = new();
             EAC.DeNum = new();
-
+            Main.PlayerUsingScanner = new();
             if (Main.NormalOptions.KillCooldown == 0f)
                 Main.NormalOptions.KillCooldown = Main.LastKillCooldown.Value;
 
@@ -65,7 +65,7 @@ class DisconnectInternalPatch
         ShowDisconnectPopupPatch.StringReason = stringReason;
 
         Logger.Info($"断开连接(理由:{reason}:{stringReason}，Ping:{__instance.Ping})", "Session");
-
+  
         ErrorText.Instance.CheatDetected = false;
         ErrorText.Instance.SBDetected = false;
         ErrorText.Instance.Clear();
@@ -149,7 +149,7 @@ class OnPlayerLeftPatch
             AntiBlackout.OnDisconnect(data.Character.Data);
             PlayerGameOptionsSender.RemoveSender(data.Character);
         }
-
+        Main.PlayerUsingScanner.Remove(data.Character);
         Main.playerVersion.Remove(data.Character.PlayerId);
         Logger.Info($"{data?.PlayerName}(ClientID:{data?.Id}/FriendCode:{data?.FriendCode})断开连接(理由:{reason}，Ping:{AmongUsClient.Instance.Ping})", "Session");
 
